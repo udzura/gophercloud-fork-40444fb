@@ -20,5 +20,6 @@ type FileConfig struct {
 // specific, uniquely identified network.  Networks are identified through
 // universally unique IDs.
 type NetworkConfig struct {
-	Uuid string `json:"uuid"`
+	Uuid string `json:"uuid,omitempty"`
+	Port string `json:"port,omitempty"`
 }
