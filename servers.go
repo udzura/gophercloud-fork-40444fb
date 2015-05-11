@@ -496,7 +496,7 @@ func (gsp *genericServersProvider) ListDefaultSGRules() ([]SGRule, error) {
 			MoreHeaders: map[string]string{
 				"X-Auth-Token": gsp.access.AuthToken(),
 			},
-			Results: &struct{Security_group_default_rules *[]SGRule}{&sgrs},
+			Results: &struct{ Security_group_default_rules *[]SGRule }{&sgrs},
 		})
 	})
 	return sgrs, err
@@ -511,8 +511,10 @@ func (gsp *genericServersProvider) CreateDefaultSGRule(r SGRule) (*SGRule, error
 			MoreHeaders: map[string]string{
 				"X-Auth-Token": gsp.access.AuthToken(),
 			},
-			Results: &struct{Security_group_default_rule **SGRule}{&sgr},
-			ReqBody: struct{Security_group_default_rule SGRule `json:"security_group_default_rule"`}{r},
+			Results: &struct{ Security_group_default_rule **SGRule }{&sgr},
+			ReqBody: struct {
+				Security_group_default_rule SGRule `json:"security_group_default_rule"`
+			}{r},
 		})
 	})
 	return sgr, err
@@ -527,7 +529,7 @@ func (gsp *genericServersProvider) GetSGRule(id string) (*SGRule, error) {
 			MoreHeaders: map[string]string{
 				"X-Auth-Token": gsp.access.AuthToken(),
 			},
-			Results: &struct{Security_group_default_rule **SGRule}{&sgr},
+			Results: &struct{ Security_group_default_rule **SGRule }{&sgr},
 		})
 	})
 	return sgr, err
@@ -755,20 +757,21 @@ type NewServerSettings struct {
 // Any Links provided are used to refer to the server specifically by URL.
 // These links are useful for making additional REST calls not explicitly supported by Gorax.
 type NewServer struct {
-	Name            string                   `json:"name,omitempty"`
-	ImageRef        string                   `json:"imageRef,omitempty"`
-	FlavorRef       string                   `json:"flavorRef,omitempty"`
-	Metadata        map[string]string        `json:"metadata,omitempty"`
-	Personality     []FileConfig             `json:"personality,omitempty"`
-	Networks        []NetworkConfig          `json:"networks,omitempty"`
-	AdminPass       string                   `json:"adminPass,omitempty"`
-	KeyPairName     string                   `json:"key_name,omitempty"`
-	Id              string                   `json:"id,omitempty"`
-	Links           []Link                   `json:"links,omitempty"`
-	OsDcfDiskConfig string                   `json:"OS-DCF:diskConfig,omitempty"`
-	SecurityGroup   []map[string]interface{} `json:"security_groups,omitempty"`
-	ConfigDrive     bool                     `json:"config_drive"`
-	UserData        string                   `json:"user_data"`
+	Name             string                   `json:"name,omitempty"`
+	ImageRef         string                   `json:"imageRef,omitempty"`
+	FlavorRef        string                   `json:"flavorRef,omitempty"`
+	Metadata         map[string]string        `json:"metadata,omitempty"`
+	Personality      []FileConfig             `json:"personality,omitempty"`
+	Networks         []NetworkConfig          `json:"networks,omitempty"`
+	AdminPass        string                   `json:"adminPass,omitempty"`
+	KeyPairName      string                   `json:"key_name,omitempty"`
+	Id               string                   `json:"id,omitempty"`
+	Links            []Link                   `json:"links,omitempty"`
+	OsDcfDiskConfig  string                   `json:"OS-DCF:diskConfig,omitempty"`
+	SecurityGroup    []map[string]interface{} `json:"security_groups,omitempty"`
+	ConfigDrive      bool                     `json:"config_drive"`
+	UserData         string                   `json:"user_data"`
+	AvailabilityZone string                   `json:"availability_zone,omitempty"`
 }
 
 // ResizeRequest structures are used internally to encode to JSON the parameters required to resize a server instance.
